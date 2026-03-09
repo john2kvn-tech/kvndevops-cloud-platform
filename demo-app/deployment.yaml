@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kvn-demo-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: kvn-demo-app
+  template:
+    metadata:
+      labels:
+        app: kvn-demo-app
+    spec:
+
+      imagePullSecrets:
+      - name: artifact-registry-secret
+
+      containers:
+      - name: kvn-demo-app
+        image: us-central1-docker.pkg.dev/kvn-aia-mini-platform/kvn-docker-repo/kvn-gke-demo:1.0
+        ports:
+        - containerPort: 8080
